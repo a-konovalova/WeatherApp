@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50sp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/logo"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="30sp"
+
+        />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="50sp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/date"
+
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/update_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/date"
+        android:layout_marginTop="10sp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/last_update"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="20sp"
+
+        />
+
+    <ImageButton
+        android:id="@+id/button_update"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@+id/update_info"
+        android:layout_marginTop="20sp"
+        android:background="@color/background"
+        android:src="@drawable/arrow_update"
+
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/result_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_update"
+        android:layout_marginTop="40sp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="30sp"
+        android:text="20 ℃"
+        />
+
+    <TextView
+        android:id="@+id/min"
+        android:layout_width="140dp"
+        android:layout_height="75dp"
+        android:layout_below="@+id/result_info"
+        android:layout_marginStart="40sp"
+        android:layout_marginTop="40sp"
+        android:background="@color/background_mini"
+        android:fontFamily="@font/montserrat_bold"
+
+        android:text="Минимальная температура\n 20 ℃"
+        android:gravity="left|center"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/max"
+        android:layout_width="140dp"
+        android:layout_height="75dp"
+        android:layout_below="@+id/result_info"
+        android:layout_marginStart="50sp"
+        android:layout_marginTop="40sp"
+        android:layout_toEndOf="@id/min"
+        android:background="@color/background_mini"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Максимальная температура\n 20 ℃"
+        android:gravity="left|center"
+        android:textAlignment="center"
+
+        android:textSize="16sp"
+        android:textColor="@color/textColor" />
+
+    <TextView
+        android:id="@+id/sunrise"
+        android:layout_width="120dp"
+        android:layout_height="75dp"
+        android:layout_below="@+id/min"
+        android:layout_marginStart="13sp"
+        android:layout_marginTop="40sp"
+        android:background="@color/background_mini"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="left|center"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/sunset"
+        android:layout_width="120dp"
+        android:layout_height="75dp"
+        android:layout_below="@+id/min"
+        android:layout_marginStart="13sp"
+        android:layout_marginTop="40sp"
+        android:layout_toEndOf="@id/sunrise"
+        android:background="@color/background_mini"
+        android:fontFamily="@font/montserrat_bold"
+
+        android:gravity="left|center"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/wind"
+        android:layout_width="120dp"
+        android:layout_height="75dp"
+        android:layout_below="@+id/min"
+        android:layout_marginStart="13sp"
+        android:layout_marginTop="40sp"
+        android:layout_toEndOf="@id/sunset"
+        android:background="@color/background_mini"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="left|center"
+        android:textAlignment="center"
+        android:textColor="@color/textColor"
+        android:textSize="16sp" />
+
+
+</RelativeLayout>
