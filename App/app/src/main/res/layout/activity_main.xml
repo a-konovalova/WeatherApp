@@ -27,7 +27,6 @@
         android:layout_below="@+id/logo"
         android:layout_marginTop="50sp"
         android:fontFamily="@font/montserrat"
-        android:text=""
 
         android:textAlignment="center"
         android:textColor="@color/textColor"

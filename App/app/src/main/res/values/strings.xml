@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Weather App</string>
     <string name="logo">Нижний Новгород</string>
-    <string name="last_update">Последнее обновление: 12:30</string>
+    <string name="last_update">Последнее обновление: </string>
     <string name="date">18.01.2021</string>
     <string name="min">Мин температура:</string>
     <string name="max">Макс температура:</string>
     <string name="sunrise">Восход:</string>
     <string name="sunset">Закат:</string>
     <string name="wind">Ветер:</string>
+
 
 </resources>

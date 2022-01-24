@@ -7,6 +7,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.TextView
+import io.github.cdimascio.dotenv.dotenv
 import org.jetbrains.anko.doAsync
 import org.json.JSONObject
 import java.net.URL
@@ -79,6 +80,13 @@ class MainActivity : AppCompatActivity() {
     private fun getDataURL (){
         doAsync {
 
+            /*val dotenv = dotenv {
+                directory = "/assets"
+                filename = "env.env"
+            }
+            dotenv["apikey"]*/
+            //val key = dotenv.get("apikey")
+
             val key = "9d5086635e15fe649921a5746f53a41f"
 
             val city = "Nizhny Novgorod"
@@ -86,10 +94,10 @@ class MainActivity : AppCompatActivity() {
                 "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$key&units=metric&lang=ru"
             val apiResponse = URL(url).readText()
 
-
             val main = JSONObject(apiResponse).getJSONObject("main")
             val temp = main.getDouble("temp").roundToInt()
             resultInfo?.text = "$temp ℃"
+            //resultInfo?.text = dotenv["apikey"]
             textAnimation(resultInfo)
 
             val tempMin = main.getDouble("temp_min").roundToInt()
