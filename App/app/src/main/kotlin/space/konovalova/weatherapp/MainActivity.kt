@@ -1,16 +1,18 @@
 package space.konovalova.weatherapp
 
-import android.annotation.SuppressLint
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
+import android.os.Handler
+import android.view.View
 import android.view.animation.AnimationUtils.loadAnimation
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.os.HandlerCompat.postDelayed
 import org.jetbrains.anko.doAsync
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,62 +42,67 @@ class MainActivity : AppCompatActivity() {
         buttonUpdate = findViewById(R.id.button_update)
         dateNow = findViewById(R.id.dateNow)
 
-        getDataByUrl()
-        dateTime()
+        if(isNetworkAvailable(applicationContext)){
+            getDateAndTimeOfLastUpdate()
+            getDataByUrl()
+        } else {
+            Toast.makeText(applicationContext, "Check your Internet connection", Toast.LENGTH_SHORT).show()
+        }
 
         buttonUpdate?.setOnClickListener {
-            getDataByUrl()
-            dateTime()
-            buttonAnimation(buttonUpdate)
+            if(isNetworkAvailable(applicationContext)){
+                buttonAnimation(buttonUpdate)
+                getDateAndTimeOfLastUpdate()
+                getDataByUrl()
+
+            } else {
+                buttonUpdate?.isClickable = false
+                Toast.makeText(applicationContext, "Check your Internet connection", Toast.LENGTH_SHORT).show()
+            }
+            buttonUpdate?.isClickable=true
         }
     }
 
-    private fun dateTime(){
-        dateNow?.text = "Последнее обновление: " + currentDateAndTime.getCurrentDate()
-        updateInfo?.text = currentDateAndTime.getCurrentTime()
+    private fun getDateAndTimeOfLastUpdate(){
+        dateNow?.text = currentDateAndTime.getCurrentDate()
+        updateInfo?.text = "Last Update: " + currentDateAndTime.getCurrentTime()
     }
 
     private fun textAnimation(textView: TextView?){
-        var anim: Animation?
-        anim = loadAnimation(this, R.anim.alpha)
-        textView?.startAnimation(anim)
+        textView?.startAnimation(loadAnimation(this, R.anim.alpha))
     }
 
     private fun buttonAnimation(imageButton: ImageButton?){
-        var anim: Animation?
-        anim = loadAnimation(this, R.anim.rotate)
-        imageButton?.startAnimation(anim)
+        imageButton?.startAnimation(loadAnimation(this, R.anim.rotate))
     }
-
-    @SuppressLint("SetTextI18n")
-    private fun getDataByUrl (){
+    
+    private fun getDataByUrl () {
         doAsync {
-            var weather = weatherApiService.getWeatherForCity("Нижний Новгород")
-            /*val dotenv = dotenv {
-                directory = "/assets"
-                filename = "env.env"
-            }
-            dotenv["apikey"]*/
-            //val key = dotenv.get("apikey")
+            val weather: WeatherModel = weatherApiService.getWeatherForCity("Nizhny Novgorod")
 
             resultInfo?.text = "${weather.temp} ℃"
-            //resultInfo?.text = dotenv["apikey"]
             textAnimation(resultInfo)
 
-            min?.text = "Минимальная температура\n${weather.tempMin} ℃"
+            min?.text = "Minimal temperature\n${weather.tempMin} ℃"
             textAnimation(min)
 
-            max?.text = "Максимальная температура\n${weather.tempMax} ℃"
+            max?.text = "Maximum temperature\n${weather.tempMax} ℃"
             textAnimation(max)
 
-            sunrise?.text = "Восход\n${weather.sunrise}"
+            sunrise?.text = "Sunrise\n${weather.sunrise}"
             textAnimation(sunrise)
 
-            sunset?.text = "Закат\n${weather.sunset}"
+            sunset?.text = "Sunset\n${weather.sunset}"
             textAnimation(sunset)
 
-            wind?.text = "Скорость ветра\n${weather.windSpeed} м/с"
+            wind?.text = "Wind speed\n${weather.windSpeed} m/s"
             textAnimation(wind)
         }
+    }
+    // check the connection
+    fun isNetworkAvailable(context: Context): Boolean {
+        var cm: ConnectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        var networkInfo: NetworkInfo? = cm.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 }
